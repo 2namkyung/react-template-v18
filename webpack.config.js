@@ -1,8 +1,12 @@
+const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const NodePolyfillplugin = require('node-polyfill-webpack-plugin');
 const RefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 module.exports = {
   entry: './src/index.js',
@@ -44,6 +48,10 @@ module.exports = {
     }),
 
     new NodePolyfillplugin(),
+
+    new webpack.DefinePlugin({
+      'process.env': JSON.stringify(process.env),
+    }),
 
     new RefreshWebpackPlugin(),
   ],
